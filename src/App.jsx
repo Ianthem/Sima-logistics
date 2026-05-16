@@ -441,68 +441,43 @@ function Hero({ setPage }) {
         </div>
       )}
 
-      {/* Split layout: text left, image right */}
-      <div
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "120px 24px 60px",
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: 48,
-          alignItems: "center",
-          position: "relative",
-          zIndex: 1,
-          width: "100%",
-        }}
-      >
-        {/* LEFT — Text */}
-        <div>
-          <div style={{ display: "inline-block", padding: "8px 18px", border: "1px solid rgba(232,106,44,0.3)", borderRadius: 100, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: BRAND.accent, fontWeight: 600, marginBottom: 28 }}>
-            Abuja's Logistics Partner
-          </div>
+      {/* Full-width background image hero */}
+      {slides.map((slide, i) => (
+        <div key={slide.id} style={{ position: "absolute", inset: 0 }}>
+          <img src={slide.image} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: currentSlide === i ? 1 : 0, transition: "opacity 1.5s ease", position: "absolute", inset: 0 }} />
+        </div>
+      ))}
 
-          {slides.map((slide, i) => (
-            <div key={slide.id} style={{ position: currentSlide === i ? "relative" : "absolute", opacity: currentSlide === i ? 1 : 0, transform: currentSlide === i ? "translateY(0)" : "translateY(15px)", transition: "opacity 0.8s ease, transform 0.8s ease", pointerEvents: currentSlide === i ? "auto" : "none" }}>
-              <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(32px, 4.5vw, 56px)", fontWeight: 700, color: BRAND.white, lineHeight: 1.1, margin: "0 0 20px" }}>
-                {slide.title}<br /><span style={{ color: BRAND.accent }}>{slide.highlight}</span>
-              </h1>
-              <p style={{ fontSize: 16, lineHeight: 1.7, color: "rgba(255,255,255,0.55)", maxWidth: 460 }}>{slide.subtitle}</p>
-            </div>
+      {/* Very light overlay — image shows through clearly */}
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg, rgba(20,15,10,0.45) 0%, rgba(20,15,10,0.2) 50%, rgba(20,15,10,0.4) 100%)" }} />
+
+      {/* Content centered */}
+      <div style={{ maxWidth: 900, padding: "120px 24px 80px", textAlign: "center", position: "relative", zIndex: 1, margin: "0 auto" }}>
+        <div style={{ display: "inline-block", padding: "8px 20px", border: "1px solid rgba(232,106,44,0.5)", borderRadius: 100, fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: BRAND.accent, fontWeight: 600, marginBottom: 32, background: "rgba(0,0,0,0.2)" }}>
+          Abuja's Transport & Logistics Partner
+        </div>
+
+        {slides.map((slide, i) => (
+          <div key={slide.id} style={{ position: currentSlide === i ? "relative" : "absolute", opacity: currentSlide === i ? 1 : 0, transform: currentSlide === i ? "translateY(0)" : "translateY(20px)", transition: "opacity 0.8s ease, transform 0.8s ease", pointerEvents: currentSlide === i ? "auto" : "none", width: "100%", left: 0 }}>
+            <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "clamp(36px, 6vw, 68px)", fontWeight: 700, color: BRAND.white, lineHeight: 1.1, margin: "0 0 24px", textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}>
+              {slide.title}<br /><span style={{ color: BRAND.accent }}>{slide.highlight}</span>
+            </h1>
+            <p style={{ fontSize: 18, lineHeight: 1.7, color: "rgba(255,255,255,0.9)", maxWidth: 580, margin: "0 auto 0", textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}>{slide.subtitle}</p>
+          </div>
+        ))}
+
+        <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap", marginTop: 48 }}>
+          <button onClick={() => setPage("services")} style={{ background: BRAND.accent, color: "#fff", border: "none", padding: "16px 36px", fontSize: 14, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", borderRadius: 6, cursor: "pointer", transition: "all 0.3s" }} onMouseOver={(e) => (e.target.style.background = BRAND.accentHover)} onMouseOut={(e) => (e.target.style.background = BRAND.accent)}>Our Services</button>
+          <button onClick={() => setPage("contact")} style={{ background: "rgba(0,0,0,0.2)", color: BRAND.white, border: "1px solid rgba(255,255,255,0.4)", padding: "16px 36px", fontSize: 14, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", borderRadius: 6, cursor: "pointer", transition: "all 0.3s" }} onMouseOver={(e) => { e.target.style.borderColor = BRAND.accent; e.target.style.color = BRAND.accent; }} onMouseOut={(e) => { e.target.style.borderColor = "rgba(255,255,255,0.4)"; e.target.style.color = BRAND.white; }}>Get in Touch</button>
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "center", gap: 10, marginTop: 48 }}>
+          {slides.map((_, i) => (
+            <button key={i} onClick={() => setCurrentSlide(i)} style={{ width: currentSlide === i ? 32 : 10, height: 10, borderRadius: 100, border: "none", background: currentSlide === i ? BRAND.accent : "rgba(255,255,255,0.35)", cursor: "pointer", transition: "all 0.4s ease", padding: 0 }} />
           ))}
-
-          <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginTop: 36 }}>
-            <button onClick={() => setPage("services")} style={{ background: BRAND.accent, color: "#fff", border: "none", padding: "14px 30px", fontSize: 13, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", borderRadius: 6, cursor: "pointer", transition: "all 0.3s" }} onMouseOver={(e) => (e.target.style.background = BRAND.accentHover)} onMouseOut={(e) => (e.target.style.background = BRAND.accent)}>Our Services</button>
-            <button onClick={() => setPage("contact")} style={{ background: "transparent", color: BRAND.white, border: "1px solid rgba(255,255,255,0.25)", padding: "14px 30px", fontSize: 13, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", borderRadius: 6, cursor: "pointer", transition: "all 0.3s" }} onMouseOver={(e) => { e.target.style.borderColor = BRAND.accent; e.target.style.color = BRAND.accent; }} onMouseOut={(e) => { e.target.style.borderColor = "rgba(255,255,255,0.25)"; e.target.style.color = BRAND.white; }}>Get in Touch</button>
-          </div>
-
-          <div style={{ display: "flex", gap: 10, marginTop: 32 }}>
-            {slides.map((_, i) => (
-              <button key={i} onClick={() => setCurrentSlide(i)} style={{ width: currentSlide === i ? 32 : 10, height: 10, borderRadius: 100, border: "none", background: currentSlide === i ? BRAND.accent : "rgba(255,255,255,0.2)", cursor: "pointer", transition: "all 0.4s ease", padding: 0 }} />
-            ))}
-          </div>
-
-          <div style={{ display: "flex", gap: 32, marginTop: 40, flexWrap: "wrap" }}>
-            {[{ num: "2015", label: "Established" }, { num: "FCT", label: "Headquarters" }, { num: "4PL", label: "Capability" }, { num: "24/7", label: "Operations" }].map((s, i) => (
-              <div key={i}>
-                <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 22, fontWeight: 700, color: BRAND.accent }}>{s.num}</div>
-                <div style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(255,255,255,0.3)", marginTop: 2 }}>{s.label}</div>
-              </div>
-            ))}
-          </div>
         </div>
 
-        {/* RIGHT — Image showcase */}
-        <div style={{ position: "relative" }}>
-          <div style={{ position: "absolute", top: -10, right: -10, bottom: 10, left: 10, border: `2px solid ${BRAND.accent}`, borderRadius: 16, opacity: 0.25 }} />
-          <div style={{ width: "100%", aspectRatio: "4/3", borderRadius: 12, overflow: "hidden", position: "relative", boxShadow: "0 20px 50px rgba(0,0,0,0.4)" }}>
-            {slides.map((slide, i) => (
-              <div key={slide.id} style={{ position: "absolute", inset: 0, backgroundImage: slide.image ? `url(${slide.image})` : "none", backgroundColor: slide.image ? "transparent" : "rgba(232,106,44,0.08)", backgroundSize: "cover", backgroundPosition: "center", opacity: currentSlide === i ? 1 : 0, transition: "opacity 1.2s ease" }} />
-            ))}
-            <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 60, background: "linear-gradient(to top, rgba(44,35,30,0.5), transparent)" }} />
-            <div style={{ position: "absolute", bottom: 12, right: 14, background: "rgba(0,0,0,0.45)", borderRadius: 100, padding: "3px 10px", fontSize: 11, color: "rgba(255,255,255,0.65)", fontWeight: 600 }}>{currentSlide + 1} / {slides.length}</div>
-          </div>
-        </div>
+        <div style={{ position: "absolute", bottom: 16, right: 20, background: "rgba(0,0,0,0.35)", borderRadius: 100, padding: "3px 10px", fontSize: 11, color: "rgba(255,255,255,0.65)", fontWeight: 600 }}>{currentSlide + 1} / {slides.length}</div>
       </div>
     </section>
   );
@@ -1622,31 +1597,74 @@ export default function SIMALogistics() {
     async function fetchNews() {
       setNewsLoading(true);
       const feeds = [
-        "https://www.logupdateafrica.com/feed",
-        "https://www.freightwaves.com/news/tag/africa/feed",
-        "https://businessday.ng/transport/feed/",
+        { url: "https://www.logupdateafrica.com/feed", name: "LogUpdate Africa" },
+        { url: "https://businessday.ng/transport/feed/", name: "BusinessDay Transport" },
+        { url: "https://guardian.ng/tag/logistics/feed/", name: "The Guardian Nigeria" },
+        { url: "https://punchng.com/topics/business/feed/", name: "Punch Nigeria" },
       ];
       const allItems = [];
+
       for (const feed of feeds) {
-        try {
-          const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed)}&count=5`);
-          const data = await res.json();
-          if (data.status === "ok" && data.items) {
-            data.items.forEach((item) => {
-              allItems.push({
-                id: "news-" + allItems.length + "-" + Date.now(),
-                title: item.title,
-                excerpt: item.description ? item.description.replace(/<[^>]*>/g, "").slice(0, 200) + "..." : "",
-                link: item.link,
-                source: data.feed?.title || "Industry News",
-                date: item.pubDate ? item.pubDate.split(" ")[0] : new Date().toISOString().split("T")[0],
-                image: item.thumbnail || item.enclosure?.link || "",
-                isNews: true,
-              });
-            });
-          }
-        } catch (e) {}
+        // Try multiple free RSS proxies
+        const proxies = [
+          `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}&count=4`,
+          `https://api.allorigins.win/raw?url=${encodeURIComponent(feed.url)}`,
+        ];
+
+        for (const proxyUrl of proxies) {
+          try {
+            const res = await fetch(proxyUrl);
+            if (!res.ok) continue;
+            const text = await res.text();
+
+            // Try JSON parse first (rss2json returns JSON)
+            try {
+              const data = JSON.parse(text);
+              if (data.status === "ok" && data.items) {
+                data.items.forEach((item) => {
+                  allItems.push({
+                    id: "news-" + allItems.length + "-" + Math.random().toString(36).slice(2),
+                    title: item.title,
+                    excerpt: item.description ? item.description.replace(/<[^>]*>/g, "").slice(0, 180) + "..." : "",
+                    link: item.link,
+                    source: feed.name,
+                    date: item.pubDate ? item.pubDate.split(" ")[0] : new Date().toISOString().split("T")[0],
+                    image: item.thumbnail || item.enclosure?.link || "",
+                    isNews: true,
+                  });
+                });
+                break; // Got data from this feed, move to next feed
+              }
+            } catch (jsonErr) {
+              // Not JSON — try parsing as XML (allorigins returns raw RSS)
+              try {
+                const parser = new DOMParser();
+                const xml = parser.parseFromString(text, "text/xml");
+                const items = xml.querySelectorAll("item");
+                items.forEach((item, idx) => {
+                  if (idx >= 4) return;
+                  const getTag = (tag) => item.querySelector(tag)?.textContent || "";
+                  const desc = getTag("description").replace(/<[^>]*>/g, "").slice(0, 180);
+                  const imgMatch = (item.querySelector("enclosure")?.getAttribute("url")) || 
+                    (item.innerHTML.match(/src="(https?:\/\/[^"]+\.(jpg|jpeg|png|webp))"/i) || [])[1] || "";
+                  allItems.push({
+                    id: "news-" + allItems.length + "-" + Math.random().toString(36).slice(2),
+                    title: getTag("title"),
+                    excerpt: desc ? desc + "..." : "",
+                    link: getTag("link"),
+                    source: feed.name,
+                    date: getTag("pubDate") ? new Date(getTag("pubDate")).toISOString().split("T")[0] : new Date().toISOString().split("T")[0],
+                    image: imgMatch,
+                    isNews: true,
+                  });
+                });
+                if (items.length > 0) break;
+              } catch (xmlErr) {}
+            }
+          } catch (e) {}
+        }
       }
+
       allItems.sort((a, b) => new Date(b.date) - new Date(a.date));
       setNewsItems(allItems.slice(0, 12));
       setNewsLoading(false);
