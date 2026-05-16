@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIMA Logistics — Transport & Logistics Consultancy | Abuja, Nigeria</title>
+    <meta name="description" content="SIMA Logistics is a transport and logistics consultancy delivering reliable haulage, last-mile delivery, and freight solutions across Abuja and Nigeria." />
+    <meta name="keywords" content="logistics, transport, Abuja, Nigeria, freight, delivery, haulage, consultancy, last-mile, 4PL" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+      ::selection { background: #E86A2C; color: #fff; }
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: #141414; }
+      ::-webkit-scrollbar-thumb { background: #E86A2C; border-radius: 4px; }
+      html { scroll-behavior: smooth; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- Hidden form for Netlify Forms detection -->
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <input name="bot-field" />
+      <input name="name" />
+      <input name="email" />
+      <input name="phone" />
+      <input name="service" />
+      <textarea name="message"></textarea>
+    </form>
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
